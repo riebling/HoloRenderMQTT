@@ -93,12 +93,6 @@ namespace HoloToolkit.Unity
             Vector3 p = m.MultiplyPoint(new Vector3(0, 0, -1.0F));
             latePosition = p;
 
-//            transform.position = new Vector3(CameraTransform.position.x + 0.5f,
-//                CameraTransform.position.y - 0.5f,
-//                CameraTransform.position.z + 1);
-
-//            Text myText = GameObject.Find("Canvas").GetComponent<Text>();
-
             // Adjust for the pivot axis.
             switch (PivotAxis)
             {
@@ -140,10 +134,6 @@ namespace HoloToolkit.Unity
             {
                 return;
             }
-
-//            myText.text = directionToTarget.x + Environment.NewLine +
-//                directionToTarget.y + Environment.NewLine +
-//                directionToTarget.z;
 
             // Calculate and apply the rotation required to reorient the object
             lateRotation = Quaternion.LookRotation(-directionToTarget, targetUpVector);

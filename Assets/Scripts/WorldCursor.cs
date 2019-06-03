@@ -13,6 +13,7 @@ public class WorldCursor : MonoBehaviour
         meshRenderer = this.gameObject.GetComponentInChildren<MeshRenderer>();
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -25,6 +26,7 @@ public class WorldCursor : MonoBehaviour
 
         if (Physics.Raycast(headPosition, gazeDirection, out hitInfo))
         {
+
             // If the raycast hit a hologram...
             // Display the cursor mesh.
             meshRenderer.enabled = true;
@@ -39,6 +41,6 @@ public class WorldCursor : MonoBehaviour
         {
             // If the raycast did not hit a hologram, hide the cursor mesh.
             meshRenderer.enabled = false;
-        }
+        }        
     }
 }
