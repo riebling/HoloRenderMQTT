@@ -7,7 +7,7 @@ There might also be artifacts of the previous folder/project name 'Origami'
 
 When importing into Unity, you should have a couple prerequisites set up:
 
- * Unity support for UWP (Universal Windows Platform) - HoloLens, even if you don't have the hardware, some code will want certain libraries, specifically
+ * Visual Studio support for UWP (Universal Windows Platform) - HoloLens, even if you don't have the hardware, some code will want certain libraries. To install, run Visual Studio Installer, choose Modify, check the checkbox for "Universal Windows Platform development" under Workloads
  * SpatialMapping - this is HoloLens' ability to make & use 3d scans of the space it's in, create a 'room mesh' and collider for it. There are some Unity glitches that, when first importing projects with SpatialMapping, don't find components properly. Telltale sign: `The type or namespace SpatialMappingRenderer could not be found` (or SpatialMappingCollider) error in Unity's Console window.
  The work-around is to go to File->Build Settings->Player Settings...->Player->(tab for Universal Windows Platform settings)->XR Settings, uncheck, then re-check the "Virtual Reality Supported" checkbox. Even upon doing this, not all the SpatialMapping references were resolved; closing then re-opening the Unity project seems to fully resolve them, at least for me testing the release.
  * These should be included in the Unity project, but to be sure, in File->Build Settings->Player Settings...->Player->(tab for Universal Windows Platform settings)->Publishing Settings under the Capabilities heading, these should be checked:
