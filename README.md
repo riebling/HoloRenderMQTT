@@ -18,8 +18,8 @@ When importing into Unity, you should have a couple prerequisites set up:
    - Microphone
    - Location
    - SpatialPerception
-   - RemoteSystem
- Maybe not all of them are required, we need to do ablation test to find out the minimum capabilities, but seems can't hurt.
+   - RemoteSystem  
+Maybe not all of them are required, we can ablation test to find out the minimum required capabilities, but including these can't hurt.
  * The same goes for all the files in `Assets/` - Unity has this habit of dumping more than you want when importing things from the Asset Store into the project assets, even when you try to pick and choose only what you want, often leaving out some dependent other piece like a prefab, script or texture. I'm not sure the best practice for keeping project size small, Unity seems to prefer to import massive resources into Assets (and re-import duplicate assets across multiple projects) and only strip away unused ones when you Build and, eventually, deploy.
  
 ## MQTT
