@@ -1,6 +1,6 @@
 # HoloRenderMQTT README
 
-## setup challenges
+## setup 
 
 The unity 'scene' might be named 'x' and not HoloRenderMQTT like this repository
 There might also be artifacts of the previous folder/project name 'Origami'
