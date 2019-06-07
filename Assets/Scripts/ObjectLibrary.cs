@@ -93,6 +93,9 @@ public class ObjectLibrary : MonoBehaviour
         updateStruct us = new updateStruct(name, go, x, y, z, true, enabled);
 
         workQueue.Enqueue(us);
+        // dump stale updates
+        while (workQueue.Count > 5)
+            workQueue.Dequeue();
 
     }
 
@@ -104,6 +107,7 @@ public class ObjectLibrary : MonoBehaviour
         // it would allow to skip/drop multiple updates to same GameObject
         if (workQueue.Count > 0)
         {
+            System.Diagnostics.Debug.WriteLine("Qcount: " + workQueue.Count);
             updateStruct us = workQueue.Dequeue();
             GameObject go = us.gameObj;
 
@@ -118,10 +122,10 @@ public class ObjectLibrary : MonoBehaviour
                 else {
                     // This could overwrite previously written unused targetXYZs
                     // but because we pull out only 1 per frame (Update()) we get them all
-                    obj.targetX = us.X;
-                    obj.targetY = us.Y;
-                    obj.targetZ = us.Z;
                 }
+                obj.targetX = us.X;
+                obj.targetY = us.Y;
+                obj.targetZ = us.Z;
                 obj.hasUpdate = true;
             }
             else
