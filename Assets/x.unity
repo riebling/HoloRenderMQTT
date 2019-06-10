@@ -246,6 +246,7 @@ MonoBehaviour:
   Drone: {fileID: 1881790068}
   Fire: {fileID: 2091433424}
   Avatar: {fileID: 1110508221}
+  Line: {fileID: 0}
 --- !u!114 &143520818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,7 +734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1110508222
 AudioSource:
   m_ObjectHideFlags: 0
@@ -860,6 +861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theCursor: {fileID: 1164537636}
   fireObject: {fileID: 1457844676}
+  drawTrajectories: 1
   targetX: 0
   targetY: 0
   targetZ: 0
@@ -1283,7 +1285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1881790069
 Transform:
   m_ObjectHideFlags: 0
@@ -1314,6 +1316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theCursor: {fileID: 1164537636}
   fireObject: {fileID: 1457844676}
+  drawTrajectories: 1
   targetX: 0
   targetY: 0
   targetZ: 0
@@ -1555,8 +1558,8 @@ MonoBehaviour:
   m_NumUpdatesBeforeRemoval: 10
   m_SecondsBetweenUpdates: 2.5
   m_CurrentRenderState: 2
-  m_VisualMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
-  m_OcclusionMaterial: {fileID: 15302, guid: 0000000000000000f000000000000000, type: 0}
+  m_VisualMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 3}
+  m_OcclusionMaterial: {fileID: 15302, guid: 0000000000000000f000000000000000, type: 3}
 --- !u!1 &2091433424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,6 +1606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theCursor: {fileID: 1164537636}
   fireObject: {fileID: 1457844676}
+  drawTrajectories: 1
   targetX: 0
   targetY: 0
   targetZ: 0

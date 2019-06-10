@@ -11,7 +11,6 @@ public class ObjectController : MonoBehaviour
 {
     string received_data;
     Text myText;
-    private Boolean startNewLine;
 
     // public vars appear in Unity Inspector window, thought it mangles their names
     // by inserting spaces e.g. "worldCursor" -> "World Cursor"
@@ -23,6 +22,7 @@ public class ObjectController : MonoBehaviour
     public Boolean drawTrajectories = true;
 
     public float targetX, targetY, targetZ;
+    public float targetXrot, targetYrot, targetZrot, targetWrot;
     public Boolean hasUpdate;
     private LineDrawer ld;
 
@@ -32,8 +32,6 @@ public class ObjectController : MonoBehaviour
 
         // the coordinates display canvas attached to this GameObject
         myText = this.GetComponentInChildren<Text>();
-
-        startNewLine = true;
 
         /* demonstrates how to access code from another object
         GameObject ethan = GameObject.Find("Ethan2");
@@ -80,12 +78,11 @@ public class ObjectController : MonoBehaviour
             {
                 //System.Diagnostics.Debug.WriteLine("STOPPED moving");
                 hasUpdate = false;
-                startNewLine = true;
                 return;
             }
 
             // Move the GameObject but gradually
-            Vector3 start = transform.position; //new Vector3(oldx, oldy, oldz);
+            Vector3 start = transform.position;
             Vector3 end = new Vector3(targetX, targetY, targetZ);
             Vector3 distanceTo = end - start;
             float smooth = 1.0f; // heuristically determined smoothing rate; tweak as needed
@@ -94,19 +91,22 @@ public class ObjectController : MonoBehaviour
             // Draw trajectory
             ld = new LineDrawer(0.01f);
             ld.DrawLineInGameView(new Vector3(oldx, oldy, oldz), transform.position, Color.magenta);
-//            Debug.DrawLine(new Vector3(oldx, oldy, oldz), transform.position, Color.magenta, 10);
+            //debug.drawline looks better but only works in Unity editor
+            //Debug.DrawLine(new Vector3(oldx, oldy, oldz), transform.position, Color.magenta, 10);
 
             // relative motion
             //transform.Translate(targetX, targetY, targetZ, Space.World);
 
-            // herky jerky motion
+            // herky jerky motion - no smoothing
             //transform.position = end;
-            // transform.rotation = newrot; // jerky way
+            // transform.rotation = newrot;
 
             // Rotate the GameObject but in a gradual way
             Quaternion oldrot = transform.rotation;
-            Quaternion newrot = Quaternion.LookRotation(distanceTo, Vector3.up);
+            //Quaternion newrot = Quaternion.LookRotation(distanceTo, Vector3.up);
             float turnrate = 60; // heuristically determined smooth rotation rate, tweak as desired
+
+            Quaternion newrot = new Quaternion(targetXrot, targetYrot, targetZrot, targetWrot);
             transform.rotation = Quaternion.RotateTowards(oldrot, newrot, turnrate * Time.deltaTime);
 
             // display x,y,z on attached canvas GameObject

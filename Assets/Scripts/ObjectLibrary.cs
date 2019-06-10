@@ -24,6 +24,7 @@ public class ObjectLibrary : MonoBehaviour
         public string Name;
         public GameObject gameObj;
         public float X, Y, Z;
+        public float Xrot, Yrot, Zrot, Wrot;
         public Boolean hasUpdate;
         public Boolean Enabled;
 
@@ -34,6 +35,26 @@ public class ObjectLibrary : MonoBehaviour
             X = x;
             Y = y;
             Z = z;
+            Xrot = 0;
+            Yrot = 0;
+            Zrot = 0;
+            Wrot = 0;
+            hasUpdate = update;
+            Enabled = enabled;
+        }
+
+        public updateStruct(string name, GameObject go, float x, float y, float z, 
+            float xrot, float yrot, float zrot, float wrot, Boolean update, Boolean enabled)
+        {
+            Name = name;
+            gameObj = go;
+            X = x;
+            Y = y;
+            Z = z;
+            Xrot = 0;
+            Yrot = 0;
+            Zrot = 0;
+            Wrot = 0;
             hasUpdate = update;
             Enabled = enabled;
         }
@@ -80,7 +101,11 @@ public class ObjectLibrary : MonoBehaviour
         float x = float.Parse(splits[1]);
         float y = float.Parse(splits[2]);
         float z = float.Parse(splits[3]);
-        string onoff = splits[4];
+        float xrot = float.Parse(splits[4]);
+        float yrot = float.Parse(splits[5]);
+        float zrot = float.Parse(splits[6]);
+        float wrot = float.Parse(splits[7]);
+        string onoff = splits[8];
         //        System.Diagnostics.Debug.WriteLine("x,y,z are: " + x + " " + y + " " + z);
         //        System.Diagnostics.Debug.WriteLine("myDict is: " + myDict.ToString());
         //        System.Diagnostics.Debug.WriteLine("Dict keys are: " + g.name + "," + h.name + "," + i.name);
@@ -126,6 +151,10 @@ public class ObjectLibrary : MonoBehaviour
                 obj.targetX = us.X;
                 obj.targetY = us.Y;
                 obj.targetZ = us.Z;
+                obj.targetXrot = us.Xrot;
+                obj.targetYrot = us.Yrot;
+                obj.targetZrot = us.Zrot;
+                obj.targetWrot = us.Wrot;
                 obj.hasUpdate = true;
             }
             else

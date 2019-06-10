@@ -40,24 +40,71 @@ def randmove():
         num=0
     return num
 
+lasttime=float(0)
+firstsec=0
+
+# return the value after the colon
+def parse(s):
+    return  s.replace(" ","").split(':')[1]
+
+
 #while True:
 for topic, msg, t in bag.read_messages(topics=['/cf1/vrpn_client_node/cf1/pose']):
+    # sample line
+    # 0  header: 
+    # 1  seq: 4
+    # 2  stamp: 
+    # 3    secs: 1559582959
+    # 4    nsecs: 186421857
+    # 5  frame_id: "/world"
+    # 6 pose: 
+    # 7  position: 
+    # 8    x: 0.00124780554324
+    # 9    y: 0.014096390456
+    # 10    z: 0.0175174046308
+    # 11  orientation: 
+    # 12    x: -0.0253387540579
+    # 13    y: -0.014080057852
+    # 14    z: 0.999438405037
+    # 15    w: 0.0168110821396
+
+    # each msg string contains multiple lines
     themsg=str(msg)
     splits=themsg.split('\n')
-    x=float(splits[8].split(' ')[5])*100
-    y=float(splits[9].split(' ')[5])*100
-    z=float(splits[10].split(' ')[5])*100
 
-    MESSAGE=OBJECT+","+"{0:0.3f}".format(float(x))+','+"{0:0.3f}".format(float(y))+','+"{0:0.3f}".format(float(z))+",on"
+    secs=int(parse(splits[3]))
+    if firstsec==0:
+        firstsec=secs
+    secs=secs-firstsec
+
+    nsecs=int(parse(splits[4]))
+    nowtime=float(secs)+float(nsecs)/float(1000000000)
+
+    # Position get the Fifth Element(!)
+    x=float(parse(splits[8]))
+    y=float(parse(splits[9]))
+    z=float(parse(splits[10]))
+    # Orientation
+    rotX=float(parse(splits[12]))
+    rotY=float(parse(splits[13]))
+    rotZ=float(parse(splits[14]))
+    rotW=float(parse(splits[15]))
+
+    # count frames per sec
+    # first time: initialize
+    sleeptime=float(0)
+    if lasttime==float(0):
+        lasttime=nowtime
+    else:
+        sleeptime=nowtime-lasttime
+        lasttime=nowtime
+
+    MESSAGE=OBJECT+","+"{0:0.3f}".format(x)+','+"{0:0.3f}".format(y)+','+"{0:0.3f}".format(z)+','+\
+    "{0:0.3f}".format(rotX)+','+"{0:0.3f}".format(rotY)+','+"{0:0.3f}".format(rotZ)+','+"{0:0.3f}".format(rotW)+",on"
     print(MESSAGE)
 
     os.system("mosquitto_pub -h oz.andrew.cmu.edu -t " + TOPIC + " -m " + MESSAGE);
-    time.sleep(framerate)
 
-    #    x+=randmove()
-    #    z+=randmove()
-    
+    time.sleep(sleeptime)
+
 bag.close()
-
-
-
