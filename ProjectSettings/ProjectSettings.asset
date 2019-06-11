@@ -545,14 +545,14 @@ PlayerSettings:
     Windows Store Apps: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Origami
+  metroPackageName: HoloRenderMQTT
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: CONIX Center
-  metroCertificateIssuer: CONIX Center
-  metroCertificateNotAfter: 8084d47a95fdd501
-  metroApplicationDescription: Origami
+  metroCertificateSubject: CONIX Research
+  metroCertificateIssuer: CONIX Research
+  metroCertificateNotAfter: 80a189e85c3cd601
+  metroApplicationDescription: HoloLens render things from MQTT messages
   wsaImages: {}
   metroTileShortName: Origami
   metroTileShowName: 0
