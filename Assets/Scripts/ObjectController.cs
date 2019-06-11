@@ -38,29 +38,9 @@ public class ObjectController : MonoBehaviour
         c = (ThirdPersonCharacter)ethan.GetComponent(typeof(ThirdPersonCharacter));
         anim = (Animator)ethan.GetComponent(typeof(Animator));
         */
+
+        ld = new LineDrawer(0.01f);
     }
-
-    // MQTT receive callback
-    // this code runs when a message is received
-    /*
-        public void MqttReceiveCallback(object sender, MqttMsgPublishEventArgs e)
-        {
-            //System.Diagnostics.Debug.WriteLine("received something");
-
-            received_data = Encoding.UTF8.GetString(e.Message);
-            //System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(receive_byte_array));
-
-            // parse string
-            string[] splits = received_data.Split(',');
-            targetX = float.Parse(splits[0]);
-            targetY = float.Parse(splits[1]);
-            targetZ = float.Parse(splits[2]);
-
-            hasUpdate = true;
-
-            System.Diagnostics.Debug.WriteLine("MQTT: " + received_data);
-        }
-        */
 
     private void Update()
     {
@@ -89,8 +69,10 @@ public class ObjectController : MonoBehaviour
             transform.position = Vector3.MoveTowards(start, end, Time.deltaTime * smooth);
 
             // Draw trajectory
-            ld = new LineDrawer(0.01f);
-            ld.DrawLineInGameView(new Vector3(oldx, oldy, oldz), transform.position, Color.magenta);
+            if (drawTrajectories)
+            {
+                ld.AddLine(new Vector3(oldx, oldy, oldz), transform.position, Color.magenta);
+            }
             //debug.drawline looks better but only works in Unity editor
             //Debug.DrawLine(new Vector3(oldx, oldy, oldz), transform.position, Color.magenta, 10);
 

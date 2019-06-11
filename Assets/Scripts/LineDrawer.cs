@@ -11,6 +11,9 @@ public struct LineDrawer
         lineRenderer = lineObj.AddComponent<LineRenderer>();
         //Particles/Additive
         lineRenderer.material = new Material(Shader.Find("Hidden/Internal-Colored"));
+        lineRenderer.startWidth = lineSize;
+        lineRenderer.endWidth = lineSize;
+        lineRenderer.startColor = Color.black;
 
         this.lineSize = lineSize;
     }
@@ -26,8 +29,7 @@ public struct LineDrawer
         }
     }
 
-    //Draws lines through the provided vertices
-    public void DrawLineInGameView(Vector3 start, Vector3 end, Color color)
+    public void AddLine(Vector3 start, Vector3 end, Color color)
     {
         if (lineRenderer == null)
         {
@@ -42,12 +44,16 @@ public struct LineDrawer
         lineRenderer.startWidth = lineSize;
         lineRenderer.endWidth = lineSize;
 
-        //Set line count which is 2
-        lineRenderer.positionCount = 2;
+        //Increment vertex count
+        int count = lineRenderer.positionCount; // initially 2
+        lineRenderer.positionCount = count + 1; // increment
+
+        // There's already a default (black) line from vertex 0 to 1
+        // so our first line will be from vertex 1 to 2
 
         //Set the postion of both two lines
-        lineRenderer.SetPosition(0, start);
-        lineRenderer.SetPosition(1, end);
+        lineRenderer.SetPosition(count-1, start);
+        lineRenderer.SetPosition(count, end);
     }
 
     public void Destroy()
