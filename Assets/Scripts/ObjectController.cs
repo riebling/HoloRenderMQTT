@@ -65,8 +65,10 @@ public class ObjectController : MonoBehaviour
             Vector3 start = transform.position;
             Vector3 end = new Vector3(targetX, targetY, targetZ);
             Vector3 distanceTo = end - start;
+
             float smooth = 1.0f; // heuristically determined smoothing rate; tweak as needed
             transform.position = Vector3.MoveTowards(start, end, Time.deltaTime * smooth);
+            //transform.position = end; // herky jerky motion - no smoothing
 
             // Draw trajectory
             if (drawTrajectories)
@@ -79,17 +81,15 @@ public class ObjectController : MonoBehaviour
             // relative motion
             //transform.Translate(targetX, targetY, targetZ, Space.World);
 
-            // herky jerky motion - no smoothing
-            //transform.position = end;
             // transform.rotation = newrot;
 
-            // Rotate the GameObject but in a gradual way
             Quaternion oldrot = transform.rotation;
-            //Quaternion newrot = Quaternion.LookRotation(distanceTo, Vector3.up);
+            Quaternion newrot = new Quaternion(targetXrot, targetYrot, targetZrot, targetWrot);
             float turnrate = 60; // heuristically determined smooth rotation rate, tweak as desired
 
-            Quaternion newrot = new Quaternion(targetXrot, targetYrot, targetZrot, targetWrot);
+            // Rotate the GameObject but in a gradual way
             transform.rotation = Quaternion.RotateTowards(oldrot, newrot, turnrate * Time.deltaTime);
+            //transform.rotation = newrot; // this rotates immediately
 
             // display x,y,z on attached canvas GameObject
             if (myText != null) myText.text =

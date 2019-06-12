@@ -62,22 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Holograms\Support\AniCrane\AnimationSpeed.cs" />
-    <Compile Include="Assets\Holograms\Support\Fitbox\Interpolator.cs" />
-    <Compile Include="Assets\Holograms\Support\Underworld\UnderworldReset.cs" />
-    <Compile Include="Assets\Holograms\Support\Underworld\UnderworldSound.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\CameraTeleportEffect.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\ColliderProxy.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\EnviromentLighting.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\NightLights.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\PA_DroneAxisInput.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\PA_DroneCamera.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\ProximityCannon.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\SoccerGame.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\Turbine.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Scripts\WebGLHideMouse.cs" />
     <Compile Include="Assets\ProfessionalAssets\UIPack\Scripts\PAUI_Joystick.cs" />
     <Compile Include="Assets\Scripts\Billboard.cs" />
+    <Compile Include="Assets\Scripts\FaceCamera.cs" />
     <Compile Include="Assets\Scripts\GazeGestureManager.cs" />
     <Compile Include="Assets\Scripts\HeadsetController.cs" />
     <Compile Include="Assets\Scripts\LineDrawer.cs" />
@@ -87,31 +74,10 @@
     <Compile Include="Assets\Scripts\SpatialMapping.cs" />
     <Compile Include="Assets\Scripts\WallCommands.cs" />
     <Compile Include="Assets\Scripts\WorldCursor.cs" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\22143.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\16143.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Shaders\RimGlowShader.shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\20143.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Shaders\DronePatrolAnimated.shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\22142.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\21141.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\22141.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\20144.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Shaders\StandardShader [DoubleSided].shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Shaders\StandardSpecular [DoubleSided].shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\16142.txt" />
     <None Include="Assets\link.xml" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\22144.txt" />
     <None Include="Assets\Resources\Wireframe.shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\16144.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Shaders\SpaceProbeAnimated.shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\21142.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\16141.txt" />
     <None Include="Assets\Resources\DebugNormals.shader" />
     <None Include="Assets\Resources\Occlusion.shader" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\20141.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\20142.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Resources\02141.txt" />
-    <None Include="Assets\ProfessionalAssets\DronePack_Free\Shaders\UFOAnimated.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Documents/HoloRenderMQTT/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -318,9 +284,6 @@
     </Reference>
     <Reference Include="M2Mqtt.Net">
       <HintPath>D:/Documents/HoloRenderMQTT/Assets/Plugins/M2Mqtt.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="PA_DroneController_Free">
-      <HintPath>D:/Documents/HoloRenderMQTT/Assets/ProfessionalAssets/DronePack_Free/Resources/PA_DroneController_Free.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>D:/Documents/HoloRenderMQTT/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>

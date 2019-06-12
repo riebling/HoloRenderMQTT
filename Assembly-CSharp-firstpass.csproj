@@ -299,9 +299,6 @@
     <Reference Include="M2Mqtt.Net">
       <HintPath>D:/Documents/HoloRenderMQTT/Assets/Plugins/M2Mqtt.Net.dll</HintPath>
     </Reference>
-    <Reference Include="PA_DroneController_Free">
-      <HintPath>D:/Documents/HoloRenderMQTT/Assets/ProfessionalAssets/DronePack_Free/Resources/PA_DroneController_Free.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>D:/Documents/HoloRenderMQTT/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>

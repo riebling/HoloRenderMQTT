@@ -105,6 +105,6 @@ for topic, msg, t in bag.read_messages(topics=['/cf1/vrpn_client_node/cf1/pose']
 
     os.system("mosquitto_pub -h oz.andrew.cmu.edu -t " + TOPIC + " -m " + MESSAGE);
 
-    time.sleep(sleeptime)
+    #time.sleep(sleeptime)
 
 bag.close()

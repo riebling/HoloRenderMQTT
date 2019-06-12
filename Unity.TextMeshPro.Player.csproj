@@ -221,9 +221,6 @@
     <Reference Include="M2Mqtt.Net">
       <HintPath>Assets/Plugins/M2Mqtt.Net.dll</HintPath>
     </Reference>
-    <Reference Include="PA_DroneController_Free">
-      <HintPath>Assets/ProfessionalAssets/DronePack_Free/Resources/PA_DroneController_Free.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.1.3f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll</HintPath>
     </Reference>

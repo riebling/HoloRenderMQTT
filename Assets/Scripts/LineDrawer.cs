@@ -11,9 +11,15 @@ public struct LineDrawer
         lineRenderer = lineObj.AddComponent<LineRenderer>();
         //Particles/Additive
         lineRenderer.material = new Material(Shader.Find("Hidden/Internal-Colored"));
+
+        // these get overwritten, so unnecessary(?)
         lineRenderer.startWidth = lineSize;
         lineRenderer.endWidth = lineSize;
         lineRenderer.startColor = Color.black;
+
+        // This for some strange reason initializes a 2 element 'empty' line
+        // but we want to start empty and add our own, so:
+        lineRenderer.positionCount = 1; // an endpoint connected to nothing
 
         this.lineSize = lineSize;
     }
@@ -45,7 +51,7 @@ public struct LineDrawer
         lineRenderer.endWidth = lineSize;
 
         //Increment vertex count
-        int count = lineRenderer.positionCount; // initially 2
+        int count = lineRenderer.positionCount; // initially 1
         lineRenderer.positionCount = count + 1; // increment
 
         // There's already a default (black) line from vertex 0 to 1
@@ -54,6 +60,9 @@ public struct LineDrawer
         //Set the postion of both two lines
         lineRenderer.SetPosition(count-1, start);
         lineRenderer.SetPosition(count, end);
+
+        // fewer line segments; looks like a spider spinning a web
+        //lineRenderer.Simplify(0.002f);
     }
 
     public void Destroy()

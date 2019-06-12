@@ -51,10 +51,10 @@ public class ObjectLibrary : MonoBehaviour
             X = x;
             Y = y;
             Z = z;
-            Xrot = 0;
-            Yrot = 0;
-            Zrot = 0;
-            Wrot = 0;
+            Xrot = xrot;
+            Yrot = yrot;
+            Zrot = zrot;
+            Wrot = wrot;
             hasUpdate = update;
             Enabled = enabled;
         }
@@ -66,11 +66,7 @@ public class ObjectLibrary : MonoBehaviour
         workQueue = new Queue<updateStruct>();
 
         // map render strings to GameObjects
-        /*
-                myDict.Add("drone", new updateStruct((ObjectController)Drone.GetComponent<ObjectController>(), 0, 0, 0, false));
-                myDict.Add("fire", new updateStruct((ObjectController)Fire.GetComponent<ObjectController>(), 0, 0, 0, false));
-                myDict.Add("avatar", new updateStruct((ObjectController)Avatar.GetComponent<ObjectController>(), 0, 0, 0, false));
-                */
+
         myDict.Add("drone", Drone);
         myDict.Add("fire", Fire);
         myDict.Add("avatar", Avatar);
@@ -90,7 +86,7 @@ public class ObjectLibrary : MonoBehaviour
         //System.Diagnostics.Debug.WriteLine("received something");
 
         received_data = Encoding.UTF8.GetString(e.Message);
-        System.Diagnostics.Debug.WriteLine("MQTT: " + received_data);
+        //System.Diagnostics.Debug.WriteLine("MQTT: " + received_data);
 
         // enqueue a position update to be dequeued during Update() time
         // (once per frame)
@@ -115,7 +111,7 @@ public class ObjectLibrary : MonoBehaviour
         if (onoff == "on") enabled = true;
 
         GameObject go = myDict[name];
-        updateStruct us = new updateStruct(name, go, x, y, z, true, enabled);
+        updateStruct us = new updateStruct(name, go, x, y, z, xrot, yrot, zrot,wrot, true, enabled);
 
         workQueue.Enqueue(us);
         // dump stale updates
@@ -132,7 +128,7 @@ public class ObjectLibrary : MonoBehaviour
         // it would allow to skip/drop multiple updates to same GameObject
         if (workQueue.Count > 0)
         {
-            System.Diagnostics.Debug.WriteLine("Qcount: " + workQueue.Count);
+            //System.Diagnostics.Debug.WriteLine("Qcount: " + workQueue.Count);
             updateStruct us = workQueue.Dequeue();
             GameObject go = us.gameObj;
 
@@ -142,6 +138,7 @@ public class ObjectLibrary : MonoBehaviour
                 // if previously inactive, warp directly to new coordinate
                 if (!go.activeSelf) {
                     go.transform.position = new Vector3(us.X, us.Y, us.Z);
+                    go.transform.rotation = new Quaternion(us.Xrot, us.Yrot, us.Zrot, us.Wrot);
                     go.SetActive(true);
                 }
                 else {
