@@ -34,9 +34,9 @@ mosquitto-sub -h <hostname> -t <topic>
 ```
 We have an MQTT broker set up at `oz.andrew.cmu.edu` and the HoloRenderMQTT app uses the `/topic/render`; it is intended that objects wishing to report their position for rendering publish to this topic simple messages like, for now:
 ```
-drone,-1,2,1,on
+drone,-1,2,1,0.02,0.01,0,-0.02,on
 ```
-Meaning: display the drone at coordinates -1,2,1 meters, relative to the headset (camera in Unity) frame of reference
+Meaning: display the drone at coordinates -1,2,1 meters, relative to the headset (camera in Unity) frame of reference. Rotation is oriented at .02,.01,0,-.02 as an x,y,z,w quaternion.
 The headset coordinate system is established as 0,0,0 when first running the program.
 
 There is another topic for the headset to report it's own coordinates: `/topic/headset` and a few other topics for our UWB trackers that uses a fancier format, found in the `Mqtt.cs` code (more on this later).
@@ -59,14 +59,16 @@ Not really used, this is more for VR where you have a ground plane that physical
 ### Cursor
 This is for fun, an artifact of the Origami tutorial; a donut shaped cursor in the direction of headset gaze, will track surfaces of 3d virtual objects or room mesh Spatial Mapping - coupled with `WorldCursor.cs` script and the World object (described later) can give us the location of something when a control gesture is detected. The fun part: set the object or surface on fire when clicked
 ### Avatar
-(Avatar, Drone, Fire, Line objects are similar) - a parent object that has as it's children the default Unity3d avatar ("Ethan"), a canvas to display coordinates, and importantly, the `ObjectController.cs` script. Position information updates the parent, thus updating the child (whatever flavor object it might be), moves the canvas along with it. Can be turned on or off.
+(Avatar, Drone, Fire, Line objects are similar) - a parent object that has as it's children the default Unity3d avatar ("Ethan"), a canvas to display coordinates, and importantly, the `ObjectController.cs` script. Position information updates the parent, thus updating the child (whatever flavor object it might be), moves the canvas along with it. A setting 'Draw Trajectories' in it's Object Controller script (described later) controls rendering of line segments as the object is moved
 #### Canvas
 Canvas object for drawing text. (other objects have similar Canvas children) Used to draw coordinates 'next to' 3d objects
 ### Drone
-Similar to Avatar. The GameObject is a bit heavy weight in terms of memory requirements, we could maybe do with a less complex drone, but this gives spinning blades, collision physics, sound "and everything". Other drone designs are available in the DronePak from which this came
+Similar to Avatar. A 3d model of a Crazyflie drone, with attached canvas for coordinate display.
+### Skeleton
+A stick figure skeleton made up of colored lines connecting various dots: leftHead, rightHead, torso, leftArm, rightArm, leftLag, rightLeg, leftFoot, rightFoot. Renders skeleton coordinate data from OpenPose. This object gets cloned once for each body detected by OpenPose by SkeletonFactory (see below)
 ### World
 This handles things like the room mesh for Spatial mapping, and other top level scripts like
- * `ObjectLibrary.cs` - interprets requests for movement and sends them to appropriate objects. Lists available movable objects.
+ * `ObjectFactory.cs` - interprets requests to instantiate and delete the various (Avatar, Drone, etc.) objects. Lists available movable objects.
  * `GazeGesturemanager.cs` - handles the airTap 'clicked' gesture. Other controllers (Vive) code should reside here.
  * `WallCommands.cs` - what happens if the room mesh Spatial Mapping surface is clicked? Fire, of course!
 #### SpatialMapping
@@ -78,6 +80,23 @@ similar to Avatar and drone, but without anything 3d; just a trajectory. Turns o
 
 ## Scripts
 ### `ObjectController.cs`
-The most detailed script. Contains logic to smoothly move an object every frame towards a TargetX,TargetY,TargetZ coordinate. Knows if it needs to move based on the HasUpdate flag. Knows about other GameObjects The Cursor and Fire Object so that anything with ObjectController.cs script attached can be set aflame, and fire remains attached & moves with.
-## `Mqtt.cs`
-A standalone class, this demonstrates MQTT callbacks, for storing movement updates in a queue which gets emptied out by various movable GameObjects. The `Send` method is for publishing headset coordinates. Has a sample callback function - the actual one is in `ObjectLibrary.cs` which parses messages and maps strings like 'drone', 'avatar' to actual Unity3d GameObjects. For now objects dequeue their movement updates every frame, so no movements are lost. But we may want to "fast forward" to only the most recent coordinate for performance reasons.
+The most detailed script. Contains logic to smoothly move an object every frame towards a TargetX,TargetY,TargetZ cordinate, and target Rotx,Roty,Rotz,RotW quaternion orientation. Knows if it needs to move based on the HasUpdate flag. Knows about other GameObjects The Cursor and Fire Object so that anything with ObjectController.cs script attached can be set aflame, and fire remains attached & moves with. Has a parameter to turn on or off the drawing of the trajectory taken by the GameObject it is attached to (Avatar, Drone, etc)
+### `Mqtt.cs`
+A standalone class, this demonstrates MQTT callbacks, for storing movement updates in a queue which gets emptied out by various movable GameObjects. The `Send` method is for publishing headset coordinates. Has a sample callback function - the actual one is in `ObjectLibrary.cs` which parses messages and maps strings like 'drone', 'avatar' to actual Unity3d GameObjects. For now objects dequeue their movement updates every frame, so no movements are lost. But we may want to "fast forward" to only the most recent coordinate for performance reasons. Some settings are hard coded in here (that should be promoted to Public values settable in Unity3d editor's Inspector window):
+```
+    // string BrokerAddress = "johnpi.local";
+    public string BrokerAddress = "oz.andrew.cmu.edu";
+
+    // Subscribe topics
+    public string tracker1Topic = "/topic/uwb_range_1";
+    public string tracker2Topic = "/topic/uwb_range_2";
+    public string renderTopic = "/topic/render";
+    public string skeletonTopic = "/topic/skeleton";
+
+    // Publish topics - our coordinates + orientation
+
+    //    public string headsetTopic = "/topic/vio_1"; // this is what John's demo uses
+    public string headsetTopic = "/topic/hololens"; // this is what John's demo uses
+```
+### SkeletonFactory.cs
+Has it's own MQTT topic `/topic/skeleton` since the message format is different. Interprets coordinates from OpenPose as 24 sets of x,y,z for each body joint tracked, and handles multiple person tracking by cloning multiple skeleton GameObjects.
