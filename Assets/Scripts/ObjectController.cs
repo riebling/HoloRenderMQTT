@@ -6,6 +6,7 @@ using System;
 using System.Text;
 using UnityStandardAssets.Characters.ThirdPerson;
 //using uPLibrary.Networking.M2Mqtt.Messages;
+using static ObjectFactory;
 
 public class ObjectController : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class ObjectController : MonoBehaviour
     public float targetX, targetY, targetZ;
     public float targetXrot, targetYrot, targetZrot, targetWrot;
     public Boolean hasUpdate;
+    public updateStruct us;
     private LineDrawer ld;
 
     void Start()
@@ -40,6 +42,8 @@ public class ObjectController : MonoBehaviour
         */
 
         ld = new LineDrawer(0.01f);
+        // This should enable destroy of the child LineRenderer when object is destroyed
+        ld.lineRenderer.transform.SetParent(transform);
     }
 
     private void Update()

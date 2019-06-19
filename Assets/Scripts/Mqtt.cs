@@ -8,12 +8,13 @@ public class Mqtt
 {
     // MQTT Stuff
     // string BrokerAddress = "johnpi.local";
-    string BrokerAddress = "oz.andrew.cmu.edu";
+    public string BrokerAddress = "oz.andrew.cmu.edu";
 
     // Subscribe topics
     public string tracker1Topic = "/topic/uwb_range_1";
     public string tracker2Topic = "/topic/uwb_range_2";
     public string renderTopic = "/topic/render";
+    public string skeletonTopic = "/topic/skeleton";
 
     // Publish topics - our coordinates + orientation
 
@@ -48,7 +49,7 @@ public class Mqtt
     }
 
     // this example code runs when a message is received
-    // in fact, the MQTT receive code is in ObjectLibrary.cs
+    // in fact, the MQTT receive code is in ObjectFactory.cs
     private void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
     {
         string message = Encoding.UTF8.GetString(e.Message);

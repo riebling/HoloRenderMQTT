@@ -70,7 +70,9 @@
     <Compile Include="Assets\Scripts\LineDrawer.cs" />
     <Compile Include="Assets\Scripts\Mqtt.cs" />
     <Compile Include="Assets\Scripts\ObjectController.cs" />
-    <Compile Include="Assets\Scripts\ObjectLibrary.cs" />
+    <Compile Include="Assets\Scripts\ObjectFactory.cs" />
+    <Compile Include="Assets\Scripts\OpenPose3dSkeletonFactory.cs" />
+    <Compile Include="Assets\Scripts\SkeletonScript.cs" />
     <Compile Include="Assets\Scripts\SpatialMapping.cs" />
     <Compile Include="Assets\Scripts\WallCommands.cs" />
     <Compile Include="Assets\Scripts\WorldCursor.cs" />

@@ -62,9 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Editor\PA_DroneAxisInputEditor.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Editor\PA_DroneCameraEditor.cs" />
-    <Compile Include="Assets\ProfessionalAssets\DronePack_Free\Editor\PA_DroneControllerEditor.cs" />
+    <Compile Include="Assets\Editor\MeshCombineWizard.cs.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Documents/HoloRenderMQTT/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -313,9 +311,6 @@
     </Reference>
     <Reference Include="M2Mqtt.Net">
       <HintPath>D:/Documents/HoloRenderMQTT/Assets/Plugins/M2Mqtt.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="PA_DroneController_Free">
-      <HintPath>D:/Documents/HoloRenderMQTT/Assets/ProfessionalAssets/DronePack_Free/Resources/PA_DroneController_Free.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>D:/Documents/HoloRenderMQTT/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

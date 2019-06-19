@@ -2,15 +2,19 @@
 
 public struct LineDrawer
 {
-    private LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
     private float lineSize;
 
-    public LineDrawer(float lineSize = 0.2f)
+    public LineDrawer(float lineSize = 0.1f)
     {
         GameObject lineObj = new GameObject("LineObj");
         lineRenderer = lineObj.AddComponent<LineRenderer>();
-        //Particles/Additive
-        lineRenderer.material = new Material(Shader.Find("Hidden/Internal-Colored"));
+
+        // but turn it off right away
+        lineRenderer.enabled = false;
+
+        //Still confusing how Materials and Resources and Shaders and Textures interact
+        lineRenderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
 
         // these get overwritten, so unnecessary(?)
         lineRenderer.startWidth = lineSize;
@@ -24,13 +28,29 @@ public struct LineDrawer
         this.lineSize = lineSize;
     }
 
-    private void init(float lineSize = 0.2f)
+
+    private void init(float lineSize = 0.1f)
     {
         if (lineRenderer == null)
         {
             GameObject lineObj = new GameObject("LineObj");
             lineRenderer = lineObj.AddComponent<LineRenderer>();
-            lineRenderer.material = new Material(Shader.Find("Hidden/Internal-Colored"));
+
+            // but turn it off right away
+            lineRenderer.enabled = false;
+
+            // huh?
+            lineRenderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
+
+            // these get overwritten, so unnecessary(?)
+            lineRenderer.startWidth = lineSize;
+            lineRenderer.endWidth = lineSize;
+            lineRenderer.startColor = Color.black;
+
+            // This for some strange reason initializes a 2 element 'empty' line
+            // but we want to start empty and add our own, so:
+            lineRenderer.positionCount = 1; // an endpoint connected to nothing
+
             this.lineSize = lineSize;
         }
     }
@@ -63,6 +83,7 @@ public struct LineDrawer
 
         // fewer line segments; looks like a spider spinning a web
         //lineRenderer.Simplify(0.002f);
+        lineRenderer.enabled = true;
     }
 
     public void Destroy()
