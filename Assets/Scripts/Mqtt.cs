@@ -4,15 +4,15 @@ using UnityEngine;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-public class Mqtt
+public class Mqtt: MonoBehaviour
 {
     // MQTT Stuff
     // string BrokerAddress = "johnpi.local";
     public string BrokerAddress = "oz.andrew.cmu.edu";
 
     // Subscribe topics
-    public string tracker1Topic = "/topic/uwb_range_1";
-    public string tracker2Topic = "/topic/uwb_range_2";
+    private string tracker1Topic = "/topic/uwb_range_1";
+    private string tracker2Topic = "/topic/uwb_range_2";
     public string renderTopic = "/topic/render";
     public string skeletonTopic = "/topic/skeleton";
 
@@ -22,13 +22,19 @@ public class Mqtt
     public string headsetTopic = "/topic/hololens"; // this is what John's demo uses
 
     public MqttClient client;
-    public Boolean hasUpdate;
-    public string receiveBuf;
+//    public Boolean hasUpdate;
+    private string receiveBuf;
 
+    public void Start()
+    {
+    }
+    public void Update()
+    {
+    }
     public void InitMqtt(string topic)
     {
         client = new MqttClient(BrokerAddress);
-        hasUpdate = false;
+//        hasUpdate = false;
         string clientId;
 
         // register a callback-function (we have to implement, see below) which is called by the library when a message was received
