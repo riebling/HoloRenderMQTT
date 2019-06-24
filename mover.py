@@ -1,6 +1,6 @@
 # mover.py
 #
-# send x,y,z move coordinates like "1,2,1" to a UDP port (on hololens)
+# send x,y,z rotX,rotY,rotZ,rotW move coordinates like "1,2,1,0,0,0,0" to a UDP port (on hololens)
 
 import socket,threading,SocketServer,time,random,os,sys
 
@@ -42,7 +42,7 @@ Xaway = True
 Zaway = True
 
 while True:
-    MESSAGE=OBJECT+","+"{0:0.3f}".format(x)+','+"{0:0.3f}".format(y)+','+"{0:0.3f}".format(z)+",on"
+    MESSAGE=OBJECT+","+"{0:0.3f}".format(x)+','+"{0:0.3f}".format(y)+','+"{0:0.3f}".format(z)+"0,0,0,0,on"
     print(MESSAGE)
 
     os.system("mosquitto_pub -h oz.andrew.cmu.edu -t " + TOPIC + " -m " + MESSAGE);
