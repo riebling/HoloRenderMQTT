@@ -20,7 +20,6 @@ When importing into Unity, you should have a couple prerequisites set up:
    - SpatialPerception
    - RemoteSystem  
 Maybe not all of them are required, we can ablation test to find out the minimum required capabilities, but including these can't hurt.
- * The same goes for all the files in `Assets/` - Unity has this habit of dumping more than you want when importing things from the Asset Store into the project assets, even when you try to pick and choose only what you want, often leaving out some dependent other piece like a prefab, script or texture. I'm not sure the best practice for keeping project size small, Unity seems to prefer to import massive resources into Assets (and re-import duplicate assets across multiple projects) and only strip away unused ones when you Build and, eventually, deploy.
  
 ## MQTT
 Part of the beauty of MQTT is heterogeneous devices do not need to know each others' IP address or hostname, only the the hostname of the MQTT broker. It's deceptively simple to set up a MQTT broker on linux:
@@ -99,4 +98,5 @@ A standalone class, this demonstrates MQTT callbacks, for storing movement updat
     public string headsetTopic = "/topic/hololens"; // this is what John's demo uses
 ```
 ### SkeletonFactory.cs
-Has it's own MQTT topic `/topic/skeleton` since the message format is different. Interprets coordinates from OpenPose as 24 sets of x,y,z for each body joint tracked, and handles multiple person tracking by cloning multiple skeleton GameObjects.
+Has it's own MQTT topic `/topic/skeleton` since the message format is different. Interprets coordinates from OpenPose as 24 sets of x,y,z for each body joint tracked, and handles multiple person tracking by cloning multiple skeleton GameObjects. Test data is in skeleton.mqtt (derived from snapshot.mqtt) and playmqtt.sh, so for example you run `cat skeleton.mqtt | ./playmqtt.sh`
+
