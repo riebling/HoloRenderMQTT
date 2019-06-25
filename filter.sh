@@ -9,6 +9,8 @@
 # result: reformats as an MQTT message consisting of comma separated:
 # person ID, 24 triples of x,y,z data, and a string "on" or "off"
 sed -e "s/Person /Person-/" | sed -e "s/ /,/g" | tr -d "\n" | sed -e "s/Person-./\\n&,/g" | grep . | \
+{
 while read line; do
     mosquitto_pub -h oz.andrew.cmu.edu -t /topic/skeleton -m "$line"on
 done
+}
